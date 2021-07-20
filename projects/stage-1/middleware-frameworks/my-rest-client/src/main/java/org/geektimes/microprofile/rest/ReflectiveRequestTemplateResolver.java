@@ -78,6 +78,7 @@ public class ReflectiveRequestTemplateResolver implements RequestTemplateResolve
             Annotation paramAnnotation = null;
             for (Class<? extends Annotation> annotationType : SUPPORTED_PARAM_ANNOTATION_TYPES) {
                 paramAnnotation = parameter.getAnnotation(annotationType);
+                //  TODO ? 只能有 1 个?
                 if (paramAnnotation != null) {
                     break;
                 }
@@ -129,7 +130,7 @@ public class ReflectiveRequestTemplateResolver implements RequestTemplateResolve
         return getNullSafeStringArray(consumes == null ? null : consumes.value());
     }
 
-    private Consumes getConsumes(AnnotatedElement annotatedElement) {
+     private Consumes getConsumes(AnnotatedElement annotatedElement) {
         return annotatedElement.getAnnotation(Consumes.class);
     }
 

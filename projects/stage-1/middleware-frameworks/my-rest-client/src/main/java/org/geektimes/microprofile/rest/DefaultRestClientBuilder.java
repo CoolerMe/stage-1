@@ -153,6 +153,7 @@ public class DefaultRestClientBuilder implements RestClientBuilder {
             throw new IllegalArgumentException("The 'clazz' argument must be a Java interface.");
         }
 
+        // TODO 考虑缓存起来
         Map<Method, RequestTemplate> requestTemplates = resolveRequestTemplates(clazz);
 
         return (T) newProxyInstance(classLoader, new Class[]{clazz},
@@ -161,7 +162,7 @@ public class DefaultRestClientBuilder implements RestClientBuilder {
 
     private <T> Map<Method, RequestTemplate> resolveRequestTemplates(Class<T> resourceClass) {
         Map<Method, RequestTemplate> requestTemplates = new LinkedHashMap<>();
-        for (Method resourceMethod : resourceClass.getMethods()) {
+        for (Method resourceMethod : resourceClass.getDeclaredMethods()) {
             RequestTemplate requestTemplate = requestTemplateResolver.resolve(resourceClass, resourceMethod);
             if (requestTemplate != null) {
                 requestTemplate.urlTemplate(baseUrl.toString() + requestTemplate.getUriTemplate());

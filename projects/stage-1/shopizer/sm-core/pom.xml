@@ -12,6 +12,7 @@
     </parent>
 
     <artifactId>sm-core</artifactId>
+    <version>${revision}</version>
     <packaging>jar</packaging>
 
     <name>Shopizer - Core</name>

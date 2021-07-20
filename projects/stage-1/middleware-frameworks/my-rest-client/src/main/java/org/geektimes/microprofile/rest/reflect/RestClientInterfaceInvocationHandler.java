@@ -32,6 +32,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.net.URI;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Set;
@@ -124,8 +125,17 @@ public class RestClientInterfaceInvocationHandler implements InvocationHandler {
 
     private MediaType resolveMediaType(RequestTemplate requestTemplate) {
         Set<String> consumes = requestTemplate.getConsumes();
-        return consumes.isEmpty() ? MediaType.APPLICATION_JSON_TYPE :
-                MediaType.valueOf(consumes.iterator().next());
+        if (consumes.isEmpty()) {
+            return MediaType.APPLICATION_JSON_TYPE;
+        }
+        Iterator<String> iterator = consumes.iterator();
+        if (iterator.hasNext()) {
+            String content = iterator.next();
+            // FIXME MediaType.valueOf()会有异常,因为这个调用了其他的静态方法来生成实例
+//            return MediaType.valueOf(content);
+            return MediaType.APPLICATION_JSON_TYPE;
+        }
+        return MediaType.APPLICATION_JSON_TYPE;
     }
 
     private String[] getAcceptedResponseTypes(Method method) {

@@ -46,6 +46,7 @@ public class ImmutableWebTarget implements WebTarget {
 
     @Override
     public WebTarget resolveTemplate(String name, Object value, boolean encodeSlashInPath) {
+        // TODO 为什么每次都要返回一个新的ImmutableWebTarget
         ImmutableWebTarget target = newWebTarget();
         target.uriBuilder.resolveTemplate(name, value, encodeSlashInPath);
         return target;

@@ -39,6 +39,7 @@ public interface PathUtils {
     static String resolvePath(Class<?> resourceClass, Method handleMethod) {
         String pathFromResourceClass = resolvePath(resourceClass);
         String pathFromHandleMethod = resolvePath(handleMethod);
+        // TODO 曾烨烨 resolvePath两次调用
         return pathFromResourceClass != null ? pathFromResourceClass + pathFromHandleMethod : resolvePath(handleMethod);
     }
 
