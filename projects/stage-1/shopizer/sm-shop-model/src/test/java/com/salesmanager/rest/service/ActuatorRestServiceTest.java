@@ -4,7 +4,6 @@ import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.ws.rs.core.MediaType;
 import java.net.URI;
 import java.net.URISyntaxException;
 
